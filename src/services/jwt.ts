@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config.js"
 
-const secret = config.JWT_SECRET;
+const secret: string = config.JWT_SECRET;
 
-const createToken = (user) => {
+const createToken = (user: any) => {
     delete user.password;
     delete user.salt;
 
@@ -14,9 +14,9 @@ const createToken = (user) => {
     return jwt.sign(payload, secret);
 }
 
-const validateToken = (token) => {
+const validateToken = (token: string) => {
     return jwt.verify(token, secret, (err, user) => {
-        if (err) return false;
+        if (err) return {user: false};
         return user;
     });
 }
